@@ -1,0 +1,15 @@
+-------------------------------------------------------------------------------
+Test set: stepDefinations.RunCucumberTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.003 s <<< FAILURE! - in stepDefinations.RunCucumberTest
+initializationError(stepDefinations.RunCucumberTest)  Time elapsed: 0.003 s  <<< ERROR!
+cucumber.runtime.CucumberException: 
+
+
+Classes annotated with @RunWith(Cucumber.class) must not define any
+Step Definition or Hook methods. Their sole purpose is to serve as
+an entry point for JUnit. Step Definitions and Hooks should be defined
+in their own classes. This allows them to be reused across features.
+Offending class: class stepDefinations.RunCucumberTest
+
+
