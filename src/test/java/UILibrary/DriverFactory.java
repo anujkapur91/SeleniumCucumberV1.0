@@ -4,8 +4,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 //import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 
 public class DriverFactory
 {
@@ -35,18 +37,32 @@ public class DriverFactory
       {
     	  if(Browsername.equals("FIREFOX"))
     	  {
-    		System.setProperty("webdriver.firefox.bin","C:\\Users\\ankapur\\AppData\\Local\\Mozilla Firefox\\firefox.exe");
+    		System.setProperty("webdriver.firefox.bin","C:\\Users\\ankapur\\AppData\\Local\\Mozilla Firefox\\firefox.exe"); // Specifying bin path for firefox.exe
     		System.setProperty("webdriver.gecko.driver", System.getProperty("user.dir") +"\\WebDriversEXE\\geckodriver.exe");
+
     	    return new FirefoxDriver(); // can be replaced with other browser drivers  
     	  }
     	  else if(Browsername.equals("CHROME"))
     	  {
     		  System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") +"\\WebDriversEXE\\chromedriver.exe");
-//    		  ChromeOptions options = new ChromeOptions();  
-//    		  options.addArguments("--headless", "--disable-gpu", "--window-size=0,0","--ignore-certificate-errors");  
+  			 return new ChromeDriver();
+    	  }
+    	  else if (Browsername.equals("FIREFOXHL"))
+    	  {
+    		System.setProperty("webdriver.firefox.bin","C:\\Users\\ankapur\\AppData\\Local\\Mozilla Firefox\\firefox.exe");
+    		System.setProperty("webdriver.gecko.driver", System.getProperty("user.dir") +"\\WebDriversEXE\\geckodriver.exe");
+    		FirefoxOptions options = new FirefoxOptions();
+    		options.addArguments("--headless");
+    	    return new FirefoxDriver(options); // can be replaced with other browser drivers
+    	  }
+    	  else if(Browsername.equals("CHROMEHL"))
+    	  {
+    		  System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") +"\\WebDriversEXE\\chromedriver.exe");
+    		  ChromeOptions options = new ChromeOptions();  
+    		  options.addArguments("--headless", "--disable-gpu", "--window-size=1920,1200","--ignore-certificate-errors");  
 //  			driver.set(new ChromeDriver());
   			// Initialize browser
-  			 return new ChromeDriver();
+  			 return new ChromeDriver(options);
     	  }
     	  else
     	  {

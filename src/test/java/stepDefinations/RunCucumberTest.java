@@ -1,14 +1,10 @@
 package stepDefinations;
 
-import org.junit.AfterClass;
 //import org.junit.AfterClass;
 //import org.junit.runner.RunWith;
 import org.junit.runner.RunWith;
 
-import UILibrary.DriverFactory;
-import UILibrary.WebdriverSetup;
 import cucumber.api.CucumberOptions;
-import cucumber.api.java.After;
 import cucumber.api.junit.Cucumber;
 //import net.serenitybdd.cucumber.CucumberWithSerenity;
 
@@ -26,6 +22,15 @@ monochrome = true
 public class RunCucumberTest 
 {
 	
+	
+//	 @AfterClass
+//	    public static void setup() {
+//	        Reporter.loadXMLConfig(new File("src/test/resources/extent-config.xml"));
+//	        Reporter.setSystemInfo("user", System.getProperty("user.name"));
+//	        Reporter.setSystemInfo("os", "Mac OSX");
+//	        Reporter.setTestRunnerOutput("Sample test runner output message");
+//	    }
+//	
 //	@After
 //	
 //	public static void tearDown() {

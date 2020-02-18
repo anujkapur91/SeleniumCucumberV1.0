@@ -1,4 +1,16 @@
 -------------------------------------------------------------------------------
 Test set: Login to Amazon three
 -------------------------------------------------------------------------------
-Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 63.578 s - in Login to Amazon three
+Tests run: 4, Failures: 0, Errors: 4, Skipped: 0, Time elapsed: 86.974 s <<< FAILURE! - in Login to Amazon three
+Login With Correct Credentials fifth(Login to Amazon three)  Time elapsed: 29.825 s  <<< ERROR!
+java.lang.NullPointerException
+
+Login With Correct Credentials fifth(Login to Amazon three)  Time elapsed: 20.379 s  <<< ERROR!
+java.lang.NullPointerException
+
+Login With Correct Credentials sixth(Login to Amazon three)  Time elapsed: 19.807 s  <<< ERROR!
+java.lang.NullPointerException
+
+Login With Correct Credentials sixth(Login to Amazon three)  Time elapsed: 16.961 s  <<< ERROR!
+java.lang.NullPointerException
+

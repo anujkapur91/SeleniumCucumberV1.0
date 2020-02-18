@@ -58,7 +58,6 @@ public class locatorRepo {
 		Locators loc = Locators.valueOf(LocatorDesc[0].trim().toUpperCase());
 
 		
-		
 		switch (loc) {  
 		 case XPATH :  
 		     ByRef = By.xpath(LocatorDesc[1].trim());
@@ -81,6 +80,9 @@ public class locatorRepo {
 		 
 		 default:  
 		     System.out.println("Locator Type given is wrong for locator :" + LocatorDesc[1].trim() );  
+//		
+//		
+//		  
 		 } 
 		
 		

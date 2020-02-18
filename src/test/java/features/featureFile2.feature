@@ -4,28 +4,20 @@ Feature: Login to Amazon two
     Given  User Launches Amazon Webpage "<Browser>"
     When  User Navigates to Login Link
     Then  User logins with Username  and Password 
+    |Username|Password|
+    |anujkapur91@gmail.com|Rockye08$|
+    |anujkapur19@gmail.com|Rockye08$|
+    Then User types "<Product>" "<Model>" name and searches and selects the first listing
+    Then User goes to cart and removes the product
     Then  User Logs Out
     Then User closes Browser
     
     Examples:
-    |Browser|
-    |FireFox|
-    |Chrome|
+    |Browser|Product|Model|
+    |FireFox|OnePlus|7T|
+    |Chrome|OnePlus|7t pro|
     
-    
-    
-    Scenario Outline: Login With Correct Credentials fourth
-  
-    Given  User Launches Amazon Webpage "<Browser>"
-    When  User Navigates to Login Link
-    Then  User logins with Username  and Password 
-    Then  User Logs Out
-    Then User closes Browser
-    
-    Examples:
-    |Browser|
-    |FireFox|
-    |Chrome|
+
     
     
     

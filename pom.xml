@@ -8,20 +8,20 @@
 
 
 	<dependencies>
-	
-	<dependency>
-		<groupId>org.apache.logging.log4j</groupId>
-		<artifactId>log4j-api</artifactId>
-		<version>2.11.2</version>
-	</dependency>
-	
-	<dependency>
-		<groupId>org.apache.logging.log4j</groupId>
-		<artifactId>log4j-core</artifactId>
-		<version>2.11.2</version>
-	</dependency>
 
-		
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>2.11.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>2.11.2</version>
+		</dependency>
+
+
 
 		<!-- Selenium Dependency -->
 		<dependency>
@@ -56,22 +56,40 @@
 		</dependency>
 
 
+		<!-- Fillo Dependencies -->
+
+		<dependency>
+			<groupId>com.codoid.products</groupId>
+			<artifactId>fillo</artifactId>
+			<version>1.21</version>
+		</dependency>
+
+
 		<!-- Extent Report Dependencies -->
 
 
 		<dependency>
 			<groupId>com.aventstack</groupId>
 			<artifactId>extentreports-cucumber4-adapter</artifactId>
-			<version>1.0.7</version>
+			<version>1.0.6</version>
 		</dependency>
 
 
-<dependency>
-  <groupId>org.apache.maven.surefire</groupId>
-  <artifactId>surefire</artifactId>
-  <version>3.0.0-M3</version>
-  <type>pom</type>
-</dependency>
+
+		<dependency>
+			<groupId>org.apache.maven.surefire</groupId>
+			<artifactId>surefire</artifactId>
+			<version>3.0.0-M3</version>
+			<type>pom</type>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.6</version>
+		</dependency>
+
 
 
 	</dependencies>
@@ -84,7 +102,7 @@
 
 		<plugins>
 
-<!-- Surefire Plugin with Extent report configuration -->
+			<!-- Surefire Plugin with Extent report configuration -->
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -92,8 +110,8 @@
 				<version>2.22.0</version>
 				<configuration>
 					<parallel>all</parallel>
-    				<threadCount>10</threadCount>
-    				<perCoreThreadCount>false</perCoreThreadCount>
+					<threadCount>10</threadCount>
+					<perCoreThreadCount>false</perCoreThreadCount>
 					<systemPropertyVariables>
 						<extent.reporter.html.start>true</extent.reporter.html.start>
 						<extent.reporter.html.out>test-output/HtmlReport/ExtentHtml.html</extent.reporter.html.out>
