@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.logging.log4j.core.util.datetime.FastDateFormat;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -18,6 +19,8 @@ import com.sun.javafx.collections.MappingChange.Map;
 
 import UILibrary.Actions;
 import UILibrary.DriverFactory;
+import Utilities.ExtentreportUtil;
+import Utilities.ReportException;
 import Utilities.utils;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
@@ -39,54 +42,17 @@ public class StepDef {
 
 
 	//------------------- Actual trials Start  ----------------------------------------
-	//	public static void main(String[] args)
-	//	{
-	//	    
-	//		StepDef sd = new StepDef();
-	//		sd.driver =  DriverFactory.getInstance().getDriver("Chrome");
-	//		sd.driver.get("http://toolsqa.com/automation-practice-table/");
-	//			
-	//		String tableBaseXpath = "";
-	//		
-	//		List <WebElement> rows = sd.driver.findElements(By.xpath(tableBaseXpath + "/tbody/tr/td[1]"));
-	//		int itemColumn = utils.getColumnWithText(sd.driver,"City", tableBaseXpath);
-	//		int actionColumn = utils.getColumnWithText(sd.driver,"...", tableBaseXpath);
-	//
-	//		System.out.println(actionColumn);
-	//		
-	//		
-	//		for (int i = 1; i<=rows.size(); i++)
-	//		{
-	//			
-	//				WebElement ele = sd.driver.findElement(By.xpath(tableBaseXpath+"/tbody/tr["+i+"]/td["+(itemColumn-1)+"]"));
-	//				if (ele.getText().equals("Mecca"))
-	//				{
-	//					ele = sd.driver.findElement(By.xpath(tableBaseXpath+"/tbody/tr["+i+"]/td["+(actionColumn-2)+"]/a[1]"));
-	//					ele.click();
-	//				}
-	//				System.out.println();
-	//			
-	//		}
-	//		
-	//		sd.driver.close();
-	//		
-	//	    
-	//
-	//		
-	//		
-	//	}
-
+	
 	@Given("User Launches Amazon Webpage {string}")
 	public void user_Launches_Amazon_Webpage_on(String Browser) 
 	{
 		PageName = "MainPage_";
 		driver =  DriverFactory.getInstance().getDriver("firefox"); 
-		driver.manage().timeouts().implicitlyWait(500, TimeUnit.SECONDS);//
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);//
 		//	    driver = WebdriverSetup.setupBrowserDriver(Browser);
-		System.out.println("Test launched with - "+ Thread.currentThread().getName());   
 		Actions.getURL(driver, "https://www.amazon.in");
 		//		Actions.click(driver, "TodaysDeal");
-		//		Assert.assertEquals("ABC", "AC");
+//				Assert.assertEquals(driver.getCurrentUrl(), driver.getCurrentUrl()+" ");
 
 		//		info.info("Test");
 		//	    throw new cucumber.api.PendingException();
@@ -95,29 +61,26 @@ public class StepDef {
 	@When("User Navigates to Login Link")
 	public void user_Navigates_to_Login_Link() 
 	{
-		Actions.click(driver, "HelloSignIn"); 
+		
+			Actions.click(driver, "HelloSignIn");
+		 
 //		Actions.click(driver, "LoginLink");
 	}
 
 	@Then("User logins with Username  and Password")
 	public void user_logins_with_Username_and_Password(DataTable table) {
 		
-		List<java.util.Map<String,String>> m = table.asMaps(String.class,String.class);
-		System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$    " +m.size());
 		
-		for (int k=0; k<m.size();k++)
-		{
-			System.out.println(k);
-			System.out.println("K =" + k + " " + m.get(k));
-		}
+			List<java.util.Map<String,String>> m = table.asMaps(String.class,String.class);
+			Actions.sendKeys(driver, "EmailMobileNumberField", m.get(0).get("Username"));
+			Actions.click(driver, "ContinueAfterEmailMobileNumber");
+			Actions.sendKeys(driver, "PasswordField", m.get(0).get("Password"));
+			Actions.click(driver, "KeepMeSignedIn");
+//			Actions.assertFalse();
+//			Assert.assertEquals("Validation name", "abcd", "qwerty");
+			//			ExtentreportUtil.result("Fail", "Test FAIL");
+			//Actions.click(driver, "LogInButton");
 		
-		
-//		table.cell(1, 0).toString()
-		Actions.sendKeys(driver, "EmailMobileNumberField", m.get(0).get("Username"));
-		Actions.click(driver, "ContinueAfterEmailMobileNumber");
-		Actions.sendKeys(driver, "PasswordField", m.get(0).get("Password"));
-		Actions.click(driver, "KeepMeSignedIn");
-		//Actions.click(driver, "LogInButton");
 	}
 
 	@Then("User types {string} {string} name and searches and selects the first listing")
@@ -147,24 +110,16 @@ public class StepDef {
 	{
 
 	}
+	
 	//	################### HOOKS ##################################################################################################################
-	//	@AfterStep
-	//	public void afterStep(Scenario scenario)
-	//	{
-	//		Date myDate = new Date();
-	//		FastDateFormat fdf = FastDateFormat.getInstance("yyyy-MM-dd:HH-mm-ss");
-	//		String myDateString = fdf.format(myDate);
-	//
-	//		byte[] screenshot = ((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
-	//		scenario.embed(screenshot, "image/png");
-	//		
-	//	}
+	
 	@After
 	public void afterScenario(Scenario scenario){
 
 		driver.quit();
 		DriverFactory.getInstance().removeDriver();
 		System.out.println("##########################   Test Scenario Tear Down  ######################################");
+		ExtentreportUtil.flushAll();
 
 	}
 	//	@After
@@ -176,10 +131,13 @@ public class StepDef {
 	//	}
 
 	@Before
-	public void testCaseInitialization()
+	public void testCaseInitialization(Scenario scenario)
 	{
 		System.out.println("##########################   Test Scenario Initialization on Thread - "+Thread.currentThread().getName()+" with Thread ID - "+Thread.currentThread().getId()+"  ######################################");
-
+//		ExtentreportUtil ext = new ExtentreportUtil();
+		ExtentreportUtil.setExtent(scenario);
+		
+		
 	}
 
 }

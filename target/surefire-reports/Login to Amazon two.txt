@@ -1,22 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: Login to Amazon two
 -------------------------------------------------------------------------------
-Tests run: 2, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 14.854 s <<< FAILURE! - in Login to Amazon two
-Login With Correct Credentials third(Login to Amazon two)  Time elapsed: 8.43 s  <<< ERROR!
-org.openqa.selenium.UnhandledAlertException: 
-Dismissed user prompt dialog: http://inpnpxy3-wcg.corp.capgemini.com:8080 is requesting your username and password.: 
-Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
-System info: host: 'LIN51007107', ip: '10.103.1.45', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_181'
-Driver info: org.openqa.selenium.firefox.FirefoxDriver
-Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 72.0.1, javascriptEnabled: true, moz:accessibilityChecks: false, moz:buildID: 20200107212822, moz:geckodriverVersion: 0.25.0, moz:headless: false, moz:processID: 79524, moz:profile: C:\Users\ankapur\AppData\Lo..., moz:shutdownTimeout: 60000, moz:useNonSpecCompliantPointerOrigin: false, moz:webdriverClick: true, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, platformVersion: 10.0, rotatable: false, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify}
-Session ID: 971fa9d0-0a13-4b03-a518-205e2ee98c83
-
-Login With Correct Credentials third(Login to Amazon two)  Time elapsed: 6.421 s  <<< ERROR!
-org.openqa.selenium.UnhandledAlertException: 
-Dismissed user prompt dialog: http://inpnpxy3-wcg.corp.capgemini.com:8080 is requesting your username and password.: 
-Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
-System info: host: 'LIN51007107', ip: '10.103.1.45', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_181'
-Driver info: org.openqa.selenium.firefox.FirefoxDriver
-Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 72.0.1, javascriptEnabled: true, moz:accessibilityChecks: false, moz:buildID: 20200107212822, moz:geckodriverVersion: 0.25.0, moz:headless: false, moz:processID: 81872, moz:profile: C:\Users\ankapur\AppData\Lo..., moz:shutdownTimeout: 60000, moz:useNonSpecCompliantPointerOrigin: false, moz:webdriverClick: true, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, platformVersion: 10.0, rotatable: false, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify}
-Session ID: 3f057b2a-45fd-418a-995b-66229a6ab934
-
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 48.302 s - in Login to Amazon two

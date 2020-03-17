@@ -10,11 +10,15 @@ import java.util.regex.Pattern;
 import org.openqa.selenium.By;
 
 import UILibrary.Locators;
+import UserDefinedExceptions.LocatorTypeException;
 
 public class locatorRepo {
 	
+	static String LocatorName;
+	
 	public static String getLocatorproperties(String locatorName)
 	{
+		LocatorName = locatorName;
 		Properties OR = null;
 		
 		String locatorProperty = null;
@@ -47,7 +51,7 @@ public class locatorRepo {
 		
 	}
 	
-	public static By getElementRef(String ObjName)
+	public static By getElementRef(String ObjName) throws LocatorTypeException
 	{
 		String[] LocatorDesc;
 		By ByRef = null;
@@ -55,35 +59,39 @@ public class locatorRepo {
 		String Locatorprop = getLocatorproperties(ObjName);
 		LocatorDesc = Locatorprop.split(Pattern.quote("|"));		
 		
-		Locators loc = Locators.valueOf(LocatorDesc[0].trim().toUpperCase());
+//		Locators loc = Locators.valueOf(LocatorDesc[0].trim().toUpperCase());
 
 		
-		switch (loc) {  
-		 case XPATH :  
-		     ByRef = By.xpath(LocatorDesc[1].trim());
-		   break;  
-		case CSSSELECTOR:  
-			ByRef = By.cssSelector(LocatorDesc[1].trim());
-		   break;
-		case ID:  
-			ByRef = By.id(LocatorDesc[1].trim());
-		   break; 
-		case NAME:  
-			ByRef = By.name(LocatorDesc[1].trim());
-		   break;
-		case LINKTEXT:  
-			ByRef = By.linkText(LocatorDesc[1].trim());
-		   break; 
-		case PARTIALLINKTEXT:  
-			ByRef = By.partialLinkText(LocatorDesc[1].trim());
-		   break; 
-		 
-		 default:  
-		     System.out.println("Locator Type given is wrong for locator :" + LocatorDesc[1].trim() );  
+		
+			switch (LocatorDesc[0].trim().toUpperCase()) 
+			{  
+			 case "XPATH" :  
+			     ByRef = By.xpath(LocatorDesc[1].trim());
+			   break;  
+			case "CSSSELECTOR":  
+				ByRef = By.cssSelector(LocatorDesc[1].trim());
+			   break;
+			case "ID":  
+				ByRef = By.id(LocatorDesc[1].trim());
+			   break; 
+			case "NAME":  
+				ByRef = By.name(LocatorDesc[1].trim());
+			   break;
+			case "LINKTEXT":  
+				ByRef = By.linkText(LocatorDesc[1].trim());
+			   break; 
+			case "PARTIALLINKTEXT":  
+				ByRef = By.partialLinkText(LocatorDesc[1].trim());
+			   break; 
+			 
+			 default:  
+				 
+			    throw new LocatorTypeException("Invalid Locator Type provided for locator name - " + LocatorName);  
 //		
 //		
 //		  
-		 } 
+			 }
+		 
 		
 		
 		return ByRef;

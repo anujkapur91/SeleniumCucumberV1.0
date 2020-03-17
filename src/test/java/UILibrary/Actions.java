@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
@@ -13,6 +14,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import com.aventstack.extentreports.ExtentTest;
+
+import UserDefinedExceptions.LocatorTypeException;
+import Utilities.ReportException;
 import Utilities.locatorRepo;
 import Utilities.screenshots;
 import Utilities.utils;
@@ -28,67 +32,53 @@ public class Actions {
 	private static final Logger logwriter = LogManager.getLogger(Actions.class);
 
 
-	//	public static void click(WebDriver driver,String ObjName)
-	//	{
-	//		WebDriverWait wait = new WebDriverWait(driver,20);
-	//			WebElement ele = wait.until(ExpectedConditions.visibilityOfElementLocated(getElementRef(ObjName))); 
-	//		WebElement ele = wait.until(ExpectedConditions.visibilityOfElementLocated(locatorRepo.getElementRef(ObjName))); 
-	//
-	//		if (ele!=null)
-	//		{
-	//			ele.click();
-	//			logwriter.info("Object - " + ObjName+ " clicked");
-	//		}
-	//		else
-	//		{
-	//			logwriter.error("Object :" + ObjName + " not available on screen");
-	//		}
-	//		
-	//
-	//		interface vs abstract class
-	// iframe automation
-	//stale element reference exception
-	//	} function interface
-
-	public static void click(WebDriver driver,String ObjName)
+	
+	public static void click(WebDriver driver,String ObjName) 
 	{
-		WebDriverWait wait = new WebDriverWait(driver,20);
-
-
 		try {
+			WebDriverWait wait = new WebDriverWait(driver,20);
 
-			WebElement ele = wait.until(ExpectedConditions.visibilityOfElementLocated(locatorRepo.getElementRef(ObjName))); 
-			//WebElement ele = driver.findElement(locatorRepo.getElementRef(ObjName));
-			ele.click();
-			logwriter.info("Object - " + ObjName+ " clicked");
 
-		} catch (NoSuchElementException e) 
-		{
-			logwriter.error("Object :" + ObjName + " not available on screen");
+			try {
 
+				WebElement ele = wait.until(ExpectedConditions.visibilityOfElementLocated(locatorRepo.getElementRef(ObjName))); 
+				//WebElement ele = driver.findElement(locatorRepo.getElementRef(ObjName));
+				ele.click();
+				logwriter.info("Object - " + ObjName+ " clicked");
+
+			} catch (NoSuchElementException e) 
+			{
+				logwriter.error("Object :" + ObjName + " not available on screen");
+
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			ReportException.reportExceptionToExtentReport(e);
 		}
 
 
 
 
 	}
-
-	public static void sendKeys(WebDriver driver,String ObjName, String text)
+	
+	public static void assertFalse()
 	{
-		WebDriverWait wait = new WebDriverWait(driver,10);
-		//		WebElement ele = wait.until(ExpectedConditions.visibilityOfElementLocated(getElementRef(ObjName))); 
+		Assert.assertEquals("Validation name", "abcd", "qwerty");	
+	
+	}
 
-
-
+	public static void sendKeys(WebDriver driver,String ObjName, String text) 
+	{
 		try {
 			//				WebElement ele = wait.until(ExpectedConditions.visibilityOfElementLocated(locatorRepo.getElementRef(ObjName))); 
 			WebElement ele = driver.findElement(locatorRepo.getElementRef(ObjName));
 			ele.clear();
 			ele.sendKeys(text);
 			logwriter.info("Object - " + ObjName+ " clicked");
-		} catch (NoSuchElementException e) {
+		} catch (Exception e) {
 			//				e.printStackTrace();
-			logwriter.error("Object :" + ObjName + " not available on screen");
+			ReportException.reportExceptionToExtentReport(e);
+			
 
 		}
 
@@ -99,143 +89,178 @@ public class Actions {
 
 	public static void getURL(WebDriver driver,String url)
 	{
-		driver.get(url);
-		driver.manage().window().maximize();
-		System.out.println(driver.getWindowHandle());
-		logwriter.info("Browser with URL : " +url + " opened");
+		try {
+			driver.get(url);
+			driver.manage().window().maximize();
+			System.out.println(driver.getWindowHandle());
+			logwriter.info("Browser with URL : " +url + " opened");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			ReportException.reportExceptionToExtentReport(e);
+		}
 
 
 	}
 
-	public static void scrollTo(WebDriver driver, String ObjName)
+	public static void scrollTo(WebDriver driver, String ObjName) 
 	{
 
 
-		WebDriverWait wait = new WebDriverWait(driver,20);
-		WebElement ele = wait.until(ExpectedConditions.visibilityOfElementLocated(locatorRepo.getElementRef(ObjName))); 
+		try {
+			WebDriverWait wait = new WebDriverWait(driver,20);
+			WebElement ele = wait.until(ExpectedConditions.visibilityOfElementLocated(locatorRepo.getElementRef(ObjName))); 
 
-		if (ele!=null)
-		{
-			JavascriptExecutor js = (JavascriptExecutor) driver;
-
-			js.executeScript("arguments[0].scrollIntoView();", ele);
-
-		}
-		else
-		{
-			logwriter.error("Object :" + ObjName + " not available on screen");
-		}
-	}
-
-	public static void selectByValue(WebDriver driver, String ObjName,String selection)
-	{
-
-
-		WebDriverWait wait = new WebDriverWait(driver,20);
-		WebElement ele = wait.until(ExpectedConditions.visibilityOfElementLocated(locatorRepo.getElementRef(ObjName))); 
-
-		if (ele!=null)
-		{
-			Select slct = new Select(driver.findElement(locatorRepo.getElementRef(ObjName)));
-			
-						
-			slct.selectByValue(selection);
-		}
-		else
-		{
-			logwriter.error("Object :" + ObjName + " not available on screen");
-		}
-	}
-
-	public static void selectByIndex(WebDriver driver, String ObjName,int selection)
-	{
-
-
-		WebDriverWait wait = new WebDriverWait(driver,20);
-		WebElement ele = wait.until(ExpectedConditions.visibilityOfElementLocated(locatorRepo.getElementRef(ObjName))); 
-
-		if (ele!=null)
-		{
-			Select slct = new Select(driver.findElement(locatorRepo.getElementRef(ObjName)));
-			slct.selectByIndex(selection);
-
-		}
-		else
-		{
-			logwriter.error("Object :" + ObjName + " not available on screen");
-		}
-	}
-
-	public static void selectByVisibleText(WebDriver driver, String ObjName,String selection)
-	{
-
-
-		WebDriverWait wait = new WebDriverWait(driver,20);
-		WebElement ele = wait.until(ExpectedConditions.visibilityOfElementLocated(locatorRepo.getElementRef(ObjName))); 
-
-		if (ele!=null)
-		{
-			Select slct = new Select(driver.findElement(locatorRepo.getElementRef(ObjName)));
-			
-			List<WebElement> options = slct.getOptions();
-			int duplicacy = 0;
-			
-			for(WebElement option : options)
+			if (ele!=null)
 			{
-				if(option.getText().equals(selection))
-				{
-					duplicacy = duplicacy+1;
-				}
-			}
-			
-			if(duplicacy>1)
-			{
-				logwriter.error(duplicacy +" - options found with visible text - " + selection);
+				JavascriptExecutor js = (JavascriptExecutor) driver;
+
+				js.executeScript("arguments[0].scrollIntoView();", ele);
+
 			}
 			else
 			{
-				slct.deselectByVisibleText(selection);
+				logwriter.error("Object :" + ObjName + " not available on screen");
 			}
-		}
-		else
-		{
-			logwriter.error("Object :" + ObjName + " not available on screen");
-		}
-	}
-
-	public static void moveOverElement(WebDriver driver, String ObjName)
-	{
-
-
-		WebDriverWait wait = new WebDriverWait(driver,20);
-		WebElement ele = wait.until(ExpectedConditions.visibilityOfElementLocated(locatorRepo.getElementRef(ObjName))); 
-
-		if (ele!=null)
-		{
-
-
-		}
-		else
-		{
-			logwriter.error("Object :" + ObjName + " not available on screen");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			ReportException.reportExceptionToExtentReport(e);
 		}
 	}
 
-	public static void sendKeyStrokes(WebDriver driver, String ObjName, String... KeyStrokes)
+	public static void selectByValue(WebDriver driver, String ObjName,String selection) 
 	{
 
 
-		WebDriverWait wait = new WebDriverWait(driver,20);
-		WebElement ele = wait.until(ExpectedConditions.visibilityOfElementLocated(locatorRepo.getElementRef(ObjName))); 
+		try {
+			WebDriverWait wait = new WebDriverWait(driver,20);
+			WebElement ele = wait.until(ExpectedConditions.visibilityOfElementLocated(locatorRepo.getElementRef(ObjName))); 
 
-		if (ele!=null)
-		{
-
-
+			if (ele!=null)
+			{
+				Select slct = new Select(driver.findElement(locatorRepo.getElementRef(ObjName)));
+				
+							
+				slct.selectByValue(selection);
+			}
+			else
+			{
+				logwriter.error("Object :" + ObjName + " not available on screen");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			ReportException.reportExceptionToExtentReport(e);
 		}
-		else
-		{
-			logwriter.error("Object :" + ObjName + " not available on screen");
+	}
+
+	public static void selectByIndex(WebDriver driver, String ObjName,int selection) 
+	{
+
+
+		try {
+			WebDriverWait wait = new WebDriverWait(driver,20);
+			WebElement ele = wait.until(ExpectedConditions.visibilityOfElementLocated(locatorRepo.getElementRef(ObjName))); 
+
+			if (ele!=null)
+			{
+				Select slct = new Select(driver.findElement(locatorRepo.getElementRef(ObjName)));
+				slct.selectByIndex(selection);
+
+			}
+			else
+			{
+				logwriter.error("Object :" + ObjName + " not available on screen");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			ReportException.reportExceptionToExtentReport(e);
+		}
+	}
+
+	public static void selectByVisibleText(WebDriver driver, String ObjName,String selection) 
+	{
+
+
+		try {
+			WebDriverWait wait = new WebDriverWait(driver,20);
+			WebElement ele = wait.until(ExpectedConditions.elementToBeClickable(locatorRepo.getElementRef(ObjName))); 
+
+			if (ele!=null)
+			{
+				Select slct = new Select(driver.findElement(locatorRepo.getElementRef(ObjName)));
+				
+				List<WebElement> options = slct.getOptions();
+				int duplicacy = 0;
+				
+				for(WebElement option : options)
+				{
+					if(option.getText().equals(selection))
+					{
+						duplicacy = duplicacy++;
+					}
+				}
+				
+				if(duplicacy>1)
+				{
+					logwriter.error(duplicacy +" - options found with visible text - " + selection);
+				}
+				else
+				{
+					slct.deselectByVisibleText(selection);
+				}
+			}
+			else
+			{
+				logwriter.error("Object :" + ObjName + " not available on screen");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			ReportException.reportExceptionToExtentReport(e);
+		}
+	}
+
+	public static void moveOverElement(WebDriver driver, String ObjName) 
+	{
+
+
+		try {
+			WebDriverWait wait = new WebDriverWait(driver,20);
+			WebElement ele = wait.until(ExpectedConditions.visibilityOfElementLocated(locatorRepo.getElementRef(ObjName))); 
+
+			if (ele!=null)
+			{
+
+
+			}
+			else
+			{
+				logwriter.error("Object :" + ObjName + " not available on screen");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			ReportException.reportExceptionToExtentReport(e);
+		}
+	}
+
+	public static void sendKeyStrokes(WebDriver driver, String ObjName, String... KeyStrokes) 
+	{
+
+
+		try {
+			WebDriverWait wait = new WebDriverWait(driver,20);
+			WebElement ele = wait.until(ExpectedConditions.visibilityOfElementLocated(locatorRepo.getElementRef(ObjName))); 
+
+			if (ele!=null)
+			{
+
+
+			}
+			else
+			{
+				logwriter.error("Object :" + ObjName + " not available on screen");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			ReportException.reportExceptionToExtentReport(e);
 		}
 	}
 
@@ -275,23 +300,28 @@ public class Actions {
 
 	}
 
-	public static void validateRowWithText(WebDriver driver,String ObjName, String... text)
+	public static void validateRowWithText(WebDriver driver,String ObjName, String... text) 
 	{
-		WebDriverWait wait = new WebDriverWait(driver,10);
-		//		WebElement ele = wait.until(ExpectedConditions.visibilityOfElementLocated(getElementRef(ObjName))); 
-
-
-
 		try {
-			//				WebElement ele = wait.until(ExpectedConditions.visibilityOfElementLocated(locatorRepo.getElementRef(ObjName))); 
-			WebElement ele = driver.findElement(locatorRepo.getElementRef(ObjName));
-			ele.clear();
-			ele.sendKeys(text);
-			logwriter.info("Object - " + ObjName+ " clicked");
-		} catch (NoSuchElementException e) {
-			//				e.printStackTrace();
-			logwriter.error("Object :" + ObjName + " not available on screen");
+			WebDriverWait wait = new WebDriverWait(driver,10);
+			//		WebElement ele = wait.until(ExpectedConditions.visibilityOfElementLocated(getElementRef(ObjName))); 
 
+
+
+			try {
+				//				WebElement ele = wait.until(ExpectedConditions.visibilityOfElementLocated(locatorRepo.getElementRef(ObjName))); 
+				WebElement ele = driver.findElement(locatorRepo.getElementRef(ObjName));
+				ele.clear();
+				ele.sendKeys(text);
+				logwriter.info("Object - " + ObjName+ " clicked");
+			} catch (NoSuchElementException e) {
+				//				e.printStackTrace();
+				logwriter.error("Object :" + ObjName + " not available on screen");
+
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			ReportException.reportExceptionToExtentReport(e);
 		}
 
 

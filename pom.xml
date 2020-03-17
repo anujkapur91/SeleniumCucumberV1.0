@@ -5,7 +5,9 @@
 	<groupId>com.automationfw</groupId>
 	<artifactId>cucumbertrials</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-
+	<properties>
+    <maven.build.timestamp.format>yyyy-MM-dd'T'HH:mm:ss'Z'</maven.build.timestamp.format>
+  </properties>
 
 	<dependencies>
 
@@ -114,7 +116,7 @@
 					<perCoreThreadCount>false</perCoreThreadCount>
 					<systemPropertyVariables>
 						<extent.reporter.html.start>true</extent.reporter.html.start>
-						<extent.reporter.html.out>test-output/HtmlReport/ExtentHtml.html</extent.reporter.html.out>
+						<extent.reporter.html.out>test-output/HtmlReport/ExtentHtml-${maven.build.timestamp}</extent.reporter.html.out>
 					</systemPropertyVariables>
 				</configuration>
 			</plugin>
